@@ -3,23 +3,23 @@ import 'package:provider/provider.dart';
 import '../../core/mixins/price_formatter_mixin.dart';
 import '../providers/cart_provider.dart';
 
-/// CartTotalWidget - Sử dụng SELECTOR để tối ưu rebuild
-///
-/// SELECTOR vs CONSUMER:
-///
-/// CONSUMER:
-/// - Rebuild khi BẤT KỲ state nào trong Provider thay đổi
-/// - Ví dụ: Thêm sản phẩm mới (quantity thay đổi) -> Consumer rebuild
-///
-/// SELECTOR:
-/// - Chỉ rebuild khi PHẦN STATE ĐƯỢC CHỌN thay đổi
-/// - Ví dụ: Chỉ rebuild khi totalPrice thay đổi
-/// - Nếu thêm cùng 1 sản phẩm (quantity tăng nhưng price/item không đổi)
-///   -> totalPrice thay đổi -> Selector rebuild
-/// - Nếu chỉ thay đổi metadata không liên quan đến price
-///   -> Selector KHÔNG rebuild
-///
-/// Cú pháp: `Selector<ProviderType, SelectedValueType>`
+// CartTotalWidget - Sử dụng SELECTOR để tối ưu rebuild
+//
+// SELECTOR vs CONSUMER:
+//
+// CONSUMER:
+// - Rebuild khi BẤT KỲ state nào trong Provider thay đổi
+// - Ví dụ: Thêm sản phẩm mới (quantity thay đổi) -> Consumer rebuild
+//
+// SELECTOR:
+// - Chỉ rebuild khi PHẦN STATE ĐƯỢC CHỌN thay đổi
+// - Ví dụ: Chỉ rebuild khi totalPrice thay đổi
+// - Nếu thêm cùng 1 sản phẩm (quantity tăng nhưng price/item không đổi)
+//   -> totalPrice thay đổi -> Selector rebuild
+// - Nếu chỉ thay đổi metadata không liên quan đến price
+//   -> Selector KHÔNG rebuild
+//
+// Cú pháp: `Selector<ProviderType, SelectedValueType>`
 class CartTotalWidget extends StatelessWidget with PriceFormatterMixin {
   const CartTotalWidget({super.key});
 

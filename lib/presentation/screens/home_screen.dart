@@ -3,9 +3,9 @@ import '../widgets/cart_icon_widget.dart';
 import 'product_list_screen.dart';
 import 'cart_screen.dart';
 
-/// HomeScreen - Màn hình chính của ứng dụng
-///
-/// Sử dụng BottomNavigationBar để chuyển đổi giữa các tab
+// HomeScreen - Màn hình chính của ứng dụng
+//
+// Sử dụng BottomNavigationBar để chuyển đổi giữa các tab
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 

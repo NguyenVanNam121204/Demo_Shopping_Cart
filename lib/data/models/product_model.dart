@@ -1,7 +1,7 @@
-/// ProductModel - Data Model cho sản phẩm
-///
-/// Đây là class đại diện cho dữ liệu sản phẩm
-/// Sử dụng trong Data Layer của Clean Architecture
+// ProductModel - Data Model cho sản phẩm
+//
+// Đây là class đại diện cho dữ liệu sản phẩm
+// Sử dụng trong Data Layer của Clean Architecture
 class ProductModel {
   final String id;
   final String name;
@@ -19,7 +19,7 @@ class ProductModel {
     required this.category,
   });
 
-  /// Factory constructor để tạo từ JSON
+  // Factory constructor để tạo từ JSON
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       id: json['id'] as String,
@@ -31,7 +31,7 @@ class ProductModel {
     );
   }
 
-  /// Chuyển đổi thành JSON
+  // Chuyển đổi thành JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,

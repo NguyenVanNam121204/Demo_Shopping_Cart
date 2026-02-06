@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import '../../data/repositories/product_repository.dart';
 import '../widgets/product_card_widget.dart';
 
-/// ProductListScreen - Màn hình danh sách sản phẩm
-///
-/// Hiển thị danh sách sản phẩm từ ProductRepository
-/// Mỗi sản phẩm được hiển thị bằng ProductCardWidget
+// ProductListScreen - Màn hình danh sách sản phẩm
+//
+// Hiển thị danh sách sản phẩm từ ProductRepository
+// Mỗi sản phẩm được hiển thị bằng ProductCardWidget
 class ProductListScreen extends StatelessWidget {
   const ProductListScreen({super.key});
 

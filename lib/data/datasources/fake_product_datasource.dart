@@ -1,11 +1,11 @@
 import '../models/product_model.dart';
 
-/// FakeProductDataSource - Nguồn dữ liệu giả lập
-///
-/// Trong thực tế, đây sẽ là API call hoặc đọc từ database
-/// Sử dụng fake data để demo mà không cần backend
+// FakeProductDataSource - Nguồn dữ liệu giả lập
+//
+// Trong thực tế, đây sẽ là API call hoặc đọc từ database
+// Sử dụng fake data để demo mà không cần backend
 class FakeProductDataSource {
-  /// Danh sách sản phẩm giả lập
+  // Danh sách sản phẩm giả lập
   static List<ProductModel> getProducts() {
     return [
       const ProductModel(

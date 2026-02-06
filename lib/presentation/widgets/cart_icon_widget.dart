@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
 
-/// CartIconWidget - Sử dụng CONSUMER để hiển thị số lượng
-///
-/// CONSUMER:
-/// - Lắng nghe MỌI thay đổi từ CartProvider
-/// - Rebuild TOÀN BỘ widget bên trong builder mỗi khi notifyListeners() được gọi
-/// - Phù hợp khi widget cần nhiều thông tin từ Provider
-///
-/// Trong ví dụ này:
-/// - Consumer rebuild mỗi khi giỏ hàng thay đổi (thêm/xóa/cập nhật)
-/// - Hiển thị badge với tổng số lượng sản phẩm
+// CartIconWidget - Sử dụng CONSUMER để hiển thị số lượng
+//
+// CONSUMER:
+// - Lắng nghe MỌI thay đổi từ CartProvider
+// - Rebuild TOÀN BỘ widget bên trong builder mỗi khi notifyListeners() được gọi
+// - Phù hợp khi widget cần nhiều thông tin từ Provider
+//
+// Trong ví dụ này:
+// - Consumer rebuild mỗi khi giỏ hàng thay đổi (thêm/xóa/cập nhật)
+// - Hiển thị badge với tổng số lượng sản phẩm
 class CartIconWidget extends StatelessWidget {
   final VoidCallback? onTap;
 

@@ -38,6 +38,9 @@ dependencies:
   
   # Google Fonts - Hỗ trợ font tiếng Việt
   google_fonts: ^6.1.0
+  
+  # SharedPreferences - Lưu trữ dữ liệu đơn giản
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

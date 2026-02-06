@@ -4,12 +4,12 @@ import '../../core/mixins/price_formatter_mixin.dart';
 import '../../data/models/product_model.dart';
 import '../providers/cart_provider.dart';
 
-/// ProductCardWidget - Card hiển thị sản phẩm
-///
-/// Sử dụng:
-/// - context.read() để gọi method (không cần rebuild)
-/// - context.watch() để đọc state và rebuild khi thay đổi
-/// - PriceFormatterMixin để format giá tiền
+// ProductCardWidget - Card hiển thị sản phẩm
+//
+// Sử dụng:
+// - context.read() để gọi method (không cần rebuild)
+// - context.watch() để đọc state và rebuild khi thay đổi
+// - PriceFormatterMixin để format giá tiền
 class ProductCardWidget extends StatelessWidget with PriceFormatterMixin {
   final ProductModel product;
 

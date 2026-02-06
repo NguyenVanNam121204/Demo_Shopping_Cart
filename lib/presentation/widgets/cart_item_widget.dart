@@ -4,8 +4,8 @@ import '../../core/mixins/price_formatter_mixin.dart';
 import '../../domain/entities/cart_item.dart';
 import '../providers/cart_provider.dart';
 
-/// CartItemWidget - Widget hiển thị một item trong giỏ hàng
-/// Sử dụng PriceFormatterMixin để format giá tiền
+// CartItemWidget - Widget hiển thị một item trong giỏ hàng
+// Sử dụng PriceFormatterMixin để format giá tiền
 class CartItemWidget extends StatelessWidget with PriceFormatterMixin {
   final CartItem cartItem;
 

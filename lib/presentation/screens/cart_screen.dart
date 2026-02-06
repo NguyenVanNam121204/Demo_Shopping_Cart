@@ -4,18 +4,18 @@ import '../providers/cart_provider.dart';
 import '../widgets/cart_item_widget.dart';
 import '../widgets/cart_total_widget.dart';
 
-/// CartScreen - Màn hình giỏ hàng
-///
-/// DEMO CÁC CÁCH SỬ DỤNG PROVIDER:
-///
-/// 1. Consumer: Được sử dụng trong CartIconWidget (AppBar)
-///    - Rebuild toàn bộ khi giỏ hàng thay đổi
-///
-/// 2. Selector: Được sử dụng trong CartTotalWidget (Footer)
-///    - Chỉ rebuild khi totalPrice thay đổi
-///
-/// 3. context.watch(): Lắng nghe và rebuild
-/// 4. context.read(): Chỉ đọc, không rebuild
+// CartScreen - Màn hình giỏ hàng
+//
+// DEMO CÁC CÁCH SỬ DỤNG PROVIDER:
+//
+// 1. Consumer: Được sử dụng trong CartIconWidget (AppBar)
+//    - Rebuild toàn bộ khi giỏ hàng thay đổi
+//
+// 2. Selector: Được sử dụng trong CartTotalWidget (Footer)
+//    - Chỉ rebuild khi totalPrice thay đổi
+//
+// 3. context.watch(): Lắng nghe và rebuild
+// 4. context.read(): Chỉ đọc, không rebuild
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
@@ -72,7 +72,7 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  /// Widget hiển thị khi giỏ hàng trống
+  // Widget hiển thị khi giỏ hàng trống
   Widget _buildEmptyCart() {
     return Center(
       child: Column(
@@ -98,7 +98,7 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  /// Widget hiển thị danh sách sản phẩm
+  // Widget hiển thị danh sách sản phẩm
   Widget _buildCartList(BuildContext context) {
     final items = context.watch<CartProvider>().items;
 
@@ -111,7 +111,7 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  /// Dialog xác nhận xóa tất cả
+  // Dialog xác nhận xóa tất cả
   void _showClearCartDialog(BuildContext context) {
     showDialog(
       context: context,
