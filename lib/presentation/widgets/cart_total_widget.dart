@@ -32,7 +32,7 @@ class CartTotalWidget extends StatelessWidget with PriceFormatterMixin {
 
       // builder: Chỉ được gọi khi totalPrice thay đổi
       builder: (context, totalPrice, child) {
-        debugPrint('🔄 CartTotalWidget REBUILD - totalPrice: $totalPrice');
+        debugPrint('CartTotalWidget REBUILD - totalPrice: $totalPrice');
 
         return Container(
           padding: const EdgeInsets.all(16),

@@ -65,9 +65,6 @@ class CartProvider extends ChangeNotifier
     return _items.fold(0.0, (sum, item) => sum + item.totalPrice);
   }
 
-  // Tổng tiền đã format (sử dụng PriceFormatterMixin)
-  String get totalPriceFormatted => formatPrice(totalPrice);
-
   // Kiểm tra giỏ hàng có trống không
   bool get isEmpty => _items.isEmpty;
 
@@ -172,29 +169,6 @@ class CartProvider extends ChangeNotifier
         // Số lượng = 1, xóa luôn
         removeFromCart(productId);
       }
-    }
-  }
-
-  // Cập nhật số lượng cụ thể
-  void updateQuantity(String productId, int newQuantity) {
-    // Sử dụng ValidationMixin để validate
-    if (!isValidQuantity(newQuantity)) {
-      debugPrint('Invalid quantity: $newQuantity');
-      return;
-    }
-
-    final index = _items.indexWhere((item) => item.product.id == productId);
-
-    if (index != -1) {
-      _items[index].quantity = newQuantity;
-
-      // Thông báo UI rebuild + Lưu vào storage
-      notifyListeners();
-      _saveCart();
-
-      debugPrint(
-        'Updated quantity: ${_items[index].product.name} -> $newQuantity',
-      );
     }
   }
 
