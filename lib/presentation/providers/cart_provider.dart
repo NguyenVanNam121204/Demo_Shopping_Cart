@@ -28,10 +28,6 @@ class CartProvider extends ChangeNotifier
   // Key để lưu vào SharedPreferences
   static const String _cartKey = 'cart_items';
 
-  // ============================================
-  // STATE - Dữ liệu được quản lý
-  // ============================================
-
   // Danh sách các item trong giỏ hàng (private)
   final List<CartItem> _items = [];
 
@@ -44,10 +40,6 @@ class CartProvider extends ChangeNotifier
   // - Consumer SẼ rebuild (vì notifyListeners() được gọi)
   // - Selector KHÔNG rebuild (vì totalPrice không đổi)
   final Set<String> _selectedProductIds = {};
-
-  // ============================================
-  // GETTERS - Đọc state (không thay đổi state)
-  // ============================================
 
   // Lấy danh sách items (unmodifiable để tránh thay đổi trực tiếp)
   List<CartItem> get items => List.unmodifiable(_items);
@@ -82,10 +74,7 @@ class CartProvider extends ChangeNotifier
   // Số loại sản phẩm khác nhau trong giỏ
   int get itemCount => _items.length;
 
-  // ============================================
   // METHODS - Thay đổi state
-  // ============================================
-
   // Chọn/bỏ chọn sản phẩm (DEMO: Consumer rebuild, Selector không rebuild)
   // Vì totalPrice không thay đổi khi chọn sản phẩm
   void toggleSelectProduct(String productId) {
@@ -95,9 +84,9 @@ class CartProvider extends ChangeNotifier
       _selectedProductIds.add(productId);
     }
 
-    debugPrint('🎯 Selected products: $_selectedProductIds');
-    debugPrint('   → totalPrice vẫn là: $totalPrice (không đổi)');
-    debugPrint('   → Consumer SẼ rebuild, Selector KHÔNG rebuild');
+    debugPrint('Selected products: $_selectedProductIds');
+    debugPrint('totalPrice vẫn là: $totalPrice (không đổi)');
+    debugPrint('Consumer SẼ rebuild, Selector KHÔNG rebuild');
 
     // notifyListeners() được gọi nhưng totalPrice không đổi
     // → Consumer rebuild, Selector KHÔNG rebuild
@@ -124,9 +113,9 @@ class CartProvider extends ChangeNotifier
       _items.add(CartItem(product: product));
     }
 
-    // Gọi _notifyAndSave() để thông báo thay đổi VÀ lưu vào storage
-    // Tất cả Consumer và Selector đang lắng nghe sẽ được rebuild
-    _notifyAndSave();
+    // Thông báo cho tất cả Widget đang lắng nghe để rebuild UI và lưu vào storage
+    notifyListeners();
+    _saveCart();
 
     debugPrint('Added: ${product.name} | Total items: $totalQuantity');
   }
@@ -135,8 +124,9 @@ class CartProvider extends ChangeNotifier
   void removeFromCart(String productId) {
     _items.removeWhere((item) => item.product.id == productId);
 
-    // Thông báo thay đổi và lưu vào storage
-    _notifyAndSave();
+    // Thông báo cho UI rebuild và lưu vào storage
+    notifyListeners();
+    _saveCart();
 
     debugPrint('Removed product: $productId | Total items: $totalQuantity');
   }
@@ -151,7 +141,10 @@ class CartProvider extends ChangeNotifier
       // Sử dụng ValidationMixin
       if (isValidQuantity(currentQuantity + 1)) {
         _items[index].increment();
-        _notifyAndSave();
+
+        // Thông báo UI rebuild + Lưu vào storage
+        notifyListeners();
+        _saveCart();
 
         debugPrint(
           'Incremented: ${_items[index].product.name} -> ${_items[index].quantity}',
@@ -167,7 +160,10 @@ class CartProvider extends ChangeNotifier
     if (index != -1) {
       if (_items[index].quantity > 1) {
         _items[index].decrement();
-        _notifyAndSave();
+
+        // Thông báo UI rebuild + Lưu vào storage
+        notifyListeners();
+        _saveCart();
 
         debugPrint(
           'Decremented: ${_items[index].product.name} -> ${_items[index].quantity}',
@@ -191,7 +187,10 @@ class CartProvider extends ChangeNotifier
 
     if (index != -1) {
       _items[index].quantity = newQuantity;
-      _notifyAndSave();
+
+      // Thông báo UI rebuild + Lưu vào storage
+      notifyListeners();
+      _saveCart();
 
       debugPrint(
         'Updated quantity: ${_items[index].product.name} -> $newQuantity',
@@ -202,7 +201,10 @@ class CartProvider extends ChangeNotifier
   // Xóa toàn bộ giỏ hàng
   void clearCart() {
     _items.clear();
-    _notifyAndSave();
+
+    // Thông báo UI rebuild + Lưu vào storage
+    notifyListeners();
+    _saveCart();
 
     debugPrint('Cart cleared');
   }
@@ -220,10 +222,7 @@ class CartProvider extends ChangeNotifier
     return item?.quantity ?? 0;
   }
 
-  // ============================================
-  // SHAREDPREFERENCES - Lưu trữ persistent
-  // ============================================
-
+  // SHAREDPREFERENCES - Lưu trữ dữ liệu giỏ hàng vào local storage
   // Load giỏ hàng từ SharedPreferences khi khởi động app
   // Gọi method này trong main() hoặc sau khi Provider được tạo
   Future<void> loadCart() async {
@@ -243,12 +242,12 @@ class CartProvider extends ChangeNotifier
           _items.add(CartItem.fromJson(itemJson as Map<String, dynamic>));
         }
 
-        debugPrint('✅ Loaded ${_items.length} items from storage');
+        debugPrint('Loaded ${_items.length} items from storage');
       } else {
-        debugPrint('📭 No saved cart found');
+        debugPrint('No saved cart found');
       }
     } catch (e) {
-      debugPrint('❌ Error loading cart: $e');
+      debugPrint('Error loading cart: $e');
     }
 
     _isInitialized = true;
@@ -269,16 +268,9 @@ class CartProvider extends ChangeNotifier
 
       await prefs.setString(_cartKey, cartJson);
 
-      debugPrint('💾 Saved ${_items.length} items to storage');
+      debugPrint('Saved ${_items.length} items to storage');
     } catch (e) {
-      debugPrint('❌ Error saving cart: $e');
+      debugPrint('Error saving cart: $e');
     }
-  }
-
-  // Helper method: notify + save
-  // Sử dụng thay cho notifyListeners() đơn thuần
-  void _notifyAndSave() {
-    notifyListeners();
-    _saveCart(); // Lưu vào storage mỗi khi có thay đổi
   }
 }

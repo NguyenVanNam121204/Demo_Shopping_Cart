@@ -24,7 +24,7 @@ class CartIconWidget extends StatelessWidget {
       // builder được gọi lại mỗi khi CartProvider gọi notifyListeners()
       builder: (context, cartProvider, child) {
         debugPrint(
-          '🔄 CartIconWidget REBUILD - totalQuantity: ${cartProvider.totalQuantity}',
+          'CartIconWidget REBUILD - totalQuantity: ${cartProvider.totalQuantity}',
         );
 
         return GestureDetector(
